@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 
 class KisilerAdapter(private val mContext: Context, private val kisilerListe: List<Kisiler>) :
     RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu>() {
@@ -42,6 +43,11 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
 
                 when (menuItem.itemId) {
                     R.id.action_sil -> {
+
+                        Snackbar.make(holder.imageViewNokta,"Are you want to delete ${kisi.kisi_ad} ?",Snackbar.LENGTH_SHORT)
+                            .setAction("YES"){
+
+                            }.show()
                         true
                     }
                     R.id.action_guncelle -> {
