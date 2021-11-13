@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     fun tumKisilerAl(){
         kisilerListe = Kisilerdao().tumKisiler(vt)
 
-        adapter = KisilerAdapter(this, kisilerListe)
+        adapter = KisilerAdapter(this, kisilerListe,vt)
         rv.adapter = adapter
 
     }
@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     fun aramaYap(aramaKelime:String){
         kisilerListe = Kisilerdao().kisiAra(vt,aramaKelime)
 
-        adapter = KisilerAdapter(this, kisilerListe)
+        adapter = KisilerAdapter(this, kisilerListe,vt)
         rv.adapter = adapter
 
     }

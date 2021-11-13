@@ -9,8 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
-class KisilerAdapter(private val mContext: Context, private val kisilerListe: List<Kisiler>) :
-    RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu>() {
+class KisilerAdapter(
+    private val mContext: Context,
+    private var kisilerListe: List<Kisiler>,
+    private val vt: VeriTabaniYardimcisi) : RecyclerView.Adapter<KisilerAdapter.CardTasarimTutucu>() {
 
     inner class CardTasarimTutucu(tasarim: View) : RecyclerView.ViewHolder(tasarim) {
         var textViewKisiBilgi: TextView
@@ -27,6 +29,7 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
             LayoutInflater.from(mContext).inflate(R.layout.kisi_card_tasarim, parent, false)
         return CardTasarimTutucu(tasarim)
     }
+
     override fun getItemCount(): Int {
         return kisilerListe.size
     }
@@ -46,8 +49,16 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
                 when (menuItem.itemId) {
                     R.id.action_sil -> {
 
-                        Snackbar.make(holder.imageViewNokta,"Are you want to delete ${kisi.kisi_ad} ?",Snackbar.LENGTH_SHORT)
-                            .setAction("YES"){
+                        Snackbar.make(
+                            holder.imageViewNokta,
+                            "Are you want to delete ${kisi.kisi_ad} ?",
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .setAction("YES") {
+
+                                Kisilerdao().kisiSil(vt,kisi.kisi_id)
+                                kisilerListe = Kisilerdao().tumKisiler(vt)
+                                notifyDataSetChanged()
 
                             }.show()
                         true
@@ -61,7 +72,6 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
                     else ->
                         false
                 }
-
             }
 
             popupmenu.show()
@@ -69,8 +79,7 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
         }
     }
 
-
-    fun alertGoster(kisi:Kisiler) {
+    fun alertGoster(kisi: Kisiler) {
         val tasarim = LayoutInflater.from(mContext).inflate(R.layout.alert_tasarim, null)
         val editTextAd = tasarim.findViewById(R.id.editTextAd) as EditText
         val editTextTel = tasarim.findViewById(R.id.editTextTel) as EditText
@@ -84,17 +93,19 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
         ad.setTitle("Update Person")
         ad.setView(tasarim)
 
-        ad.setPositiveButton("Update") {
-                DialogInterface, i ->
+        ad.setPositiveButton("Update") { DialogInterface, i ->
 
             val kisi_ad = editTextAd.text.toString().trim()
             val kisi_tel = editTextTel.text.toString().trim()
 
-            Toast.makeText(mContext,"$kisi_ad - $kisi_tel", Toast.LENGTH_SHORT).show()
+            Kisilerdao().kisiGuncelle(vt,kisi.kisi_id,kisi_ad,kisi_tel)
+            kisilerListe = Kisilerdao().tumKisiler(vt)
+            notifyDataSetChanged()
+
+            Toast.makeText(mContext, "$kisi_ad - $kisi_tel", Toast.LENGTH_SHORT).show()
         }
 
-        ad.setNegativeButton("Cancel") {
-                DialogInterface, i ->
+        ad.setNegativeButton("Cancel") { DialogInterface, i ->
 
         }
 
