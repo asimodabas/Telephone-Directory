@@ -17,8 +17,8 @@ class Kisilerdao() {
 
         val db = vt.writableDatabase
         val values = ContentValues()
-        values.put("kisi ad", kisi_ad)
-        values.put("kisi tel", kisi_tel)
+        values.put("kisi_ad", kisi_ad)
+        values.put("kisi_tel", kisi_tel)
 
         db.insertOrThrow("kisiler", null, values)
         db.close()
@@ -30,8 +30,8 @@ class Kisilerdao() {
         val db = vt.writableDatabase
         val values = ContentValues()
 
-        values.put("kisi ad", kisi_ad)
-        values.put("kisi tel", kisi_tel)
+        values.put("kisi_ad", kisi_ad)
+        values.put("kisi_tel", kisi_tel)
 
         db.update("kisiler", values, "kisi_id=?", arrayOf(kisi_id.toString()))
         db.close()
@@ -56,7 +56,8 @@ class Kisilerdao() {
         return kisilerListe
     }
 
-    fun kisiAra(vt: VeriTabaniYardimcisi,aramaKelime:String): ArrayList<Kisiler> {
+    @SuppressLint("Range")
+    fun kisiAra(vt: VeriTabaniYardimcisi, aramaKelime:String): ArrayList<Kisiler> {
 
         val db = vt.writableDatabase
         val kisilerListe = ArrayList<Kisiler>()

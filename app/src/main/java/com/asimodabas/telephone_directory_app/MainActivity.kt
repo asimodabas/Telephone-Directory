@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private lateinit var kisilerListe: ArrayList<Kisiler>
     private lateinit var adapter: KisilerAdapter
+    private lateinit var vt: VeriTabaniYardimcisi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,19 +29,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(this)
 
-        kisilerListe = ArrayList()
-        val k1 = Kisiler(1, "Ahmet", "6545568")
-        val k2 = Kisiler(2, "Zeynep", "534534545568")
-        val k3 = Kisiler(3, "Asım", "47656756")
-        val k4 = Kisiler(4, "Mert", "44723448")
+        vt = VeriTabaniYardimcisi(this)
 
-        kisilerListe.add(k1)
-        kisilerListe.add(k2)
-        kisilerListe.add(k3)
-        kisilerListe.add(k4)
-
-        adapter = KisilerAdapter(this, kisilerListe)
-        rv.adapter = adapter
+        tumKisilerAl()
 
         fab.setOnClickListener {
             alertGoster()
@@ -73,6 +64,9 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             val kisi_ad = editTextAd.text.toString().trim()
             val kisi_tel = editTextTel.text.toString().trim()
 
+            Kisilerdao().kisiEkle(vt,kisi_ad,kisi_tel)
+            tumKisilerAl()
+
             Toast.makeText(applicationContext, "$kisi_ad - $kisi_tel", Toast.LENGTH_SHORT).show()
         }
 
@@ -84,18 +78,34 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
-        if (query != null) {
-            Log.e("Gönderilen arama", query)
-        }
+    override fun onQueryTextSubmit(query: String): Boolean {
+
+        aramaYap(query)
+        Log.e("Gönderilen arama", query)
         return true
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-        if (newText != null) {
-            Log.e("Harf girdikçe", newText)
-        }
+    override fun onQueryTextChange(newText: String): Boolean {
+
+        aramaYap(newText)
+        Log.e("Harf girdikçe", newText)
         return true
+    }
+
+    fun tumKisilerAl(){
+        kisilerListe = Kisilerdao().tumKisiler(vt)
+
+        adapter = KisilerAdapter(this, kisilerListe)
+        rv.adapter = adapter
+
+    }
+
+    fun aramaYap(aramaKelime:String){
+        kisilerListe = Kisilerdao().kisiAra(vt,aramaKelime)
+
+        adapter = KisilerAdapter(this, kisilerListe)
+        rv.adapter = adapter
+
     }
 
 }
