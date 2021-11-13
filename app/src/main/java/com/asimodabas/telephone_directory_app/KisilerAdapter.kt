@@ -4,9 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 
@@ -27,6 +26,9 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
         val tasarim =
             LayoutInflater.from(mContext).inflate(R.layout.kisi_card_tasarim, parent, false)
         return CardTasarimTutucu(tasarim)
+    }
+    override fun getItemCount(): Int {
+        return kisilerListe.size
     }
 
     override fun onBindViewHolder(holder: CardTasarimTutucu, position: Int) {
@@ -51,6 +53,9 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
                         true
                     }
                     R.id.action_guncelle -> {
+
+                        alertGoster(kisi)
+
                         true
                     }
                     else ->
@@ -64,9 +69,37 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
         }
     }
 
-    override fun getItemCount(): Int {
-        return kisilerListe.size
-    }
 
+    fun alertGoster(kisi:Kisiler) {
+        val tasarim = LayoutInflater.from(mContext).inflate(R.layout.alert_tasarim, null)
+        val editTextAd = tasarim.findViewById(R.id.editTextAd) as EditText
+        val editTextTel = tasarim.findViewById(R.id.editTextTel) as EditText
+
+        editTextAd.setText(kisi.kisi_ad)
+        editTextTel.setText(kisi.kisi_tel)
+
+
+        val ad = AlertDialog.Builder(mContext)
+
+        ad.setTitle("Update Person")
+        ad.setView(tasarim)
+
+        ad.setPositiveButton("Update") {
+                DialogInterface, i ->
+
+            val kisi_ad = editTextAd.text.toString().trim()
+            val kisi_tel = editTextTel.text.toString().trim()
+
+            Toast.makeText(mContext,"$kisi_ad - $kisi_tel", Toast.LENGTH_SHORT).show()
+        }
+
+        ad.setNegativeButton("Cancel") {
+                DialogInterface, i ->
+
+        }
+
+        ad.create().show()
+
+    }
 
 }

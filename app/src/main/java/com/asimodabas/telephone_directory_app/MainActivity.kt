@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -43,6 +44,13 @@ class MainActivity : AppCompatActivity() {
             alertGoster()
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
 
     fun alertGoster() {
         val tasarim = LayoutInflater.from(this).inflate(R.layout.alert_tasarim, null)
