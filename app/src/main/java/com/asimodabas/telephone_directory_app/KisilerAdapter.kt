@@ -31,6 +31,7 @@ class KisilerAdapter(private val mContext: Context, private val kisilerListe: Li
         val kisi = kisilerListe.get(position)
 
         holder.textViewKisiBilgi.text="${kisi.kisi_ad}-${kisi.kisi_tel}"
+
         holder.imageViewNokta.setOnClickListener {
 
 
