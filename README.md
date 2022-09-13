@@ -6,7 +6,7 @@
 * Added person can be deleted <br>
 * Added records are displayed dynamically with toast message <br>
 * Searchable among registered records<br>
-* 
+
 App Images
 --------------
 <p align="center">
