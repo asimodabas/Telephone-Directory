@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_screen"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/editTextName"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/editTextPhone"
+        style="@style/MaterialAlertDialog.MaterialComponents.Title.Text.CenterStacked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginVertical="10dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:hint="@string/phone"
+        android:inputType="number"
+        android:maxLines="11"
+        android:padding="10dp" />
+</LinearLayout>
