@@ -32,7 +32,6 @@ class UsersDAO() {
 
         db.update("kisiler", values, "kisi_id=?", arrayOf(kisi_id.toString()))
         db.close()
-
     }
 
     @SuppressLint("Range")

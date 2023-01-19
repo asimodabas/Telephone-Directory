@@ -55,11 +55,9 @@ class UsersAdapter(
                             "Are you want to delete ${kisi.user_name} ?",
                             Snackbar.LENGTH_SHORT
                         ).setAction("YES") {
-
                             UsersDAO().deleteUser(vt, kisi.user_id)
                             usersList = UsersDAO().allUsers(vt)
                             notifyDataSetChanged()
-
                         }.show()
                         true
                     }
@@ -96,9 +94,7 @@ class UsersAdapter(
 
             Toast.makeText(mContext, "$userName - $userPhone", Toast.LENGTH_SHORT).show()
         }
-
         ad.setNegativeButton("Cancel") { DialogInterface, i ->
-
         }
         ad.create().show()
     }

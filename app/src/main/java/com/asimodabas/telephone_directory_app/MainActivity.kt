@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         val item = menu?.findItem(R.id.action_ara)
         val searchView = item?.actionView as SearchView
         searchView.setOnQueryTextListener(this)
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -81,7 +80,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         usersList = UsersDAO().allUsers(dbHelper)
         adapter = UsersAdapter(this, usersList, dbHelper)
         rv.adapter = adapter
-
     }
 
     fun searchUsers(searchText: String) {
